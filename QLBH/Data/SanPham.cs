@@ -10,7 +10,7 @@ namespace QLBH.Data
         public int ID { get; set; }
         public int HangSanXuatID { get; set; }
         public int LoaiSanPhamID { get; set; }
-        public string TenSanPham { get; set; }
+        public required string TenSanPham { get; set; }
         public int DonGia { get; set; }
         public int SoLuong { get; set; }
         public string? HinhAnh { get; set; }
