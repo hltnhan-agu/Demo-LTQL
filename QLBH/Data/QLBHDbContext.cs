@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Text;
 
 namespace QLBH.Data
@@ -18,7 +17,20 @@ namespace QLBH.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["QLBHConnection"].ConnectionString);
+            if (!optionsBuilder.IsConfigured)
+            {
+                // Sử dụng connection string cố định
+                string connectionString = "Server=.;Database=QLBH;User ID=sa;Password=red;MultipleActiveResultSets=True;TrustServerCertificate=True;";
+                optionsBuilder.UseSqlServer(connectionString);
+            }
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            
+            // Tự động tạo database nếu chưa tồn tại
+            // Có thể bỏ comment nếu muốn auto-create
         }
     }
 }
